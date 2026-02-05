@@ -13,6 +13,6 @@
 #define LS_X4_PORT  GPIOB
 
 void LineSensor_Init(void);
-uint8_t LineSenor_Read(void);
+uint8_t LineSensor_Read(void);
 
 #endif

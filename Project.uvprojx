@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware</IncludePath>
+              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware;.\Control</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -710,6 +710,16 @@
               <FileType>5</FileType>
               <FilePath>.\Hardware\Motor.h</FilePath>
             </File>
+            <File>
+              <FileName>LineSensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\LineSensor.c</FilePath>
+            </File>
+            <File>
+              <FileName>LineSensor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\LineSensor.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -734,6 +744,21 @@
               <FileName>stm32f10x_it.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User\stm32f10x_it.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Control</GroupName>
+          <Files>
+            <File>
+              <FileName>LinePosition.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Control\LinePosition.c</FilePath>
+            </File>
+            <File>
+              <FileName>LinePosition.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Control\LinePosition.h</FilePath>
             </File>
           </Files>
         </Group>
