@@ -1,49 +1,43 @@
 #include "stm32f10x.h"                  // Device header
 #include "Delay.h"
 #include "OLED.h"
-#include "Motor.h"
-#include "LineSensor.h" 
-
-
-#define LED_PIN    GPIO_Pin_0
-#define LED_PORT   GPIOA
-
-// LED
-void LED_Init1(void)
-{
-    GPIO_InitTypeDef GPIO_InitStruct;
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-    
-    GPIO_InitStruct.GPIO_Pin = LED_PIN;
-    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(LED_PORT, &GPIO_InitStruct);
-    
-    GPIO_ResetBits(LED_PORT, LED_PIN);
-}
+#include "Motor.h"        
+#include "LineSensor.h"   
+#include "LinePosition.h" 
 
 int main(void)
 {
-    uint8_t sensor_data = 0; 
-    
-    
-    LineSensor_Init();
-    LED_Init1();
+    // 初始化各模块
+    Motor_GPIO_Init();   
+    Motor_PWM_Init();    
+    LineSensor_Init();   
+    //PID控制模块（待优化）
+    // P参数
+    uint16_t base_speed = 300;  // 初始速度
+    float p_gain = 150.0f;       // 开始时调为15.0发现根本不够用，暂定为150.0
 
     while(1)
     {
-        // 读取传感器数据
-        sensor_data = LineSensor_Read();
-        
-        // 判断是否检测到黑线
-        if(sensor_data != 0)
+        //获取位置偏差
+        int8_t offset = LinePosition_Calc();
+
+        // 丢线情况
+        if(offset == -100)
         {
-            GPIO_SetBits(LED_PORT, LED_PIN); // 有黑线 LED亮
+            Motor_SetSpeed(300,300);
+            continue; // 丢线不合理，待优化
         }
-        else
-        {
-            GPIO_ResetBits(LED_PORT, LED_PIN); // 反之 灭
-        }
+
+        //P参数调整左右轮速差
+        int16_t left_speed = base_speed + offset * p_gain;
+        int16_t right_speed = base_speed - offset * p_gain;
+
+        //速度范围限定
+        left_speed = (left_speed < 0) ? 0 : (left_speed > 999) ? 999 : left_speed;
+        right_speed = (right_speed < 0) ? 0 : (right_speed > 999) ? 999 : right_speed;
+
+        //前进指令
+        Motor_SetSpeed(left_speed, right_speed);
+        Motor_Forward();
     }
 }

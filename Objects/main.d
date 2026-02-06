@@ -32,3 +32,4 @@
 .\objects\main.o: .\Hardware\OLED.h
 .\objects\main.o: .\Hardware\Motor.h
 .\objects\main.o: .\Hardware\LineSensor.h
+.\objects\main.o: .\Control\LinePosition.h
