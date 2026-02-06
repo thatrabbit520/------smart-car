@@ -1,5 +1,5 @@
 #include "LineSensor.h"
-
+//四路循迹模块初始化
 void LineSensor_Init(void)
 {
     GPIO_InitTypeDef GPIO_InitStructure;
@@ -15,9 +15,9 @@ void LineSensor_Init(void)
 uint8_t LineSensor_Read(void)
 {
     uint8_t sensor_data = 0;
-    sensor_data |= (GPIO_ReadInputDataBit(LS_X1_PORT, LS_X1_PIN) ? 0 : 1) << 3;  
-    sensor_data |= (GPIO_ReadInputDataBit(LS_X2_PORT, LS_X2_PIN) ? 0 : 1) << 2;  // ?2X2 ? ?2?(0b0100)
-    sensor_data |= (GPIO_ReadInputDataBit(LS_X3_PORT, LS_X3_PIN) ? 0 : 1) << 1;  
-    sensor_data |= (GPIO_ReadInputDataBit(LS_X4_PORT, LS_X4_PIN) ? 0 : 1) << 0;  
+    sensor_data |= (GPIO_ReadInputDataBit(LS_X1_PORT, LS_X1_PIN) ? 0 : 1) << 3;  //X1对应最高位1000
+    sensor_data |= (GPIO_ReadInputDataBit(LS_X2_PORT, LS_X2_PIN) ? 0 : 1) << 2;  //X2对应0100
+    sensor_data |= (GPIO_ReadInputDataBit(LS_X3_PORT, LS_X3_PIN) ? 0 : 1) << 1;  //X3对应0010
+    sensor_data |= (GPIO_ReadInputDataBit(LS_X4_PORT, LS_X4_PIN) ? 0 : 1) << 0;  //X4对应0001
     return sensor_data;
 }

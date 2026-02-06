@@ -72,3 +72,19 @@ void Motor_Forward(void)
     GPIO_SetBits(IN3_PORT, IN3_PIN);
     GPIO_ResetBits(IN4_PORT, IN4_PIN);
 }
+// stop
+void Motor_Stop(void)
+{
+    GPIO_ResetBits(IN1_PORT, IN1_PIN);
+    GPIO_ResetBits(IN2_PORT, IN2_PIN);
+    GPIO_ResetBits(IN3_PORT, IN3_PIN);
+    GPIO_ResetBits(IN4_PORT, IN4_PIN);
+}
+
+// 设置左右电机PWM速度(0-999对应0%-100%占空比)
+void Motor_SetSpeed(uint16_t left_speed, uint16_t right_speed)
+{
+    // TIM3_CH1(PA6)右轮,CH2(PA7)左轮
+    TIM_SetCompare1(TIM3, right_speed);
+    TIM_SetCompare2(TIM3, left_speed);
+}

@@ -6,6 +6,7 @@ int main(void)
 {
 	Motor_GPIO_Init();
 	Motor_PWM_Init();
+	Motor_SetSpeed(300,500);
 	Motor_Forward();
 	while (1)
 	{
