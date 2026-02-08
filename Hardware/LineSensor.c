@@ -17,9 +17,9 @@ uint8_t LineSensor_Read(void)
     uint8_t sensor_data = 0;
 
     // 读取每个引脚，并对输出值取反（因为四路循迹模块检测到黑线返回0）
-    // 最左探头P2对应X1引脚，最低位
+    // 最左探头P1对应X1引脚，最低位
     sensor_data |= (GPIO_ReadInputDataBit(LS_X1_PORT, LS_X1_PIN) ? 0 : 1) << 0;
-    // 左2探头对应X2，第二位
+    // 左2探头p2对应X2，第二位
     sensor_data |= (GPIO_ReadInputDataBit(LS_X2_PORT, LS_X2_PIN) ? 0 : 1) << 1;
     // 右2  P3  X3      以此类推
     sensor_data |= (GPIO_ReadInputDataBit(LS_X3_PORT, LS_X3_PIN) ? 0 : 1) << 2;

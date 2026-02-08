@@ -80,7 +80,25 @@ void Motor_Stop(void)
     GPIO_ResetBits(IN3_PORT, IN3_PIN);
     GPIO_ResetBits(IN4_PORT, IN4_PIN);
 }
-
+//设置反转，增强转弯速度
+void Motor_LeftReversal(void)
+{   
+	  //left
+	  GPIO_SetBits(IN4_PORT, IN4_PIN);
+    GPIO_ResetBits(IN3_PORT, IN3_PIN);
+	  //right
+    GPIO_SetBits(IN1_PORT, IN1_PIN);
+    GPIO_ResetBits(IN2_PORT, IN2_PIN);
+}
+void Motor_RightReversal(void)
+{   
+	  //left
+	  GPIO_SetBits(IN3_PORT, IN3_PIN);
+    GPIO_ResetBits(IN4_PORT, IN4_PIN);
+	  //right
+    GPIO_SetBits(IN2_PORT, IN2_PIN);
+    GPIO_ResetBits(IN1_PORT, IN1_PIN);
+}
 // 设置左右电机PWM速度(0-999对应0%-100%占空比)
 void Motor_SetSpeed(uint16_t left_speed, uint16_t right_speed)
 {

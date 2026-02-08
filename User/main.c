@@ -14,7 +14,7 @@ int main(void)
     //PID控制模块（待优化）
     // P参数
     uint16_t base_speed = 300;  // 初始速度
-    float p_gain = 150.0f;       // 开始时调为15.0发现根本不够用，暂定为150.0
+    float p_gain = 116.5f;       // 按照权重计算得出
 
     while(1)
     {
@@ -31,13 +31,28 @@ int main(void)
         //P参数调整左右轮速差
         int16_t left_speed = base_speed + offset * p_gain;
         int16_t right_speed = base_speed - offset * p_gain;
-
+        
         //速度范围限定
-        left_speed = (left_speed < 0) ? 0 : (left_speed > 999) ? 999 : left_speed;
-        right_speed = (right_speed < 0) ? 0 : (right_speed > 999) ? 999 : right_speed;
+        //left_speed = (left_speed < 0) ? 0 : (left_speed > 999) ? 999 : left_speed;
+        //right_speed = (right_speed < 0) ? 0 : (right_speed > 999) ? 999 : right_speed;
 
         //前进指令
-        Motor_SetSpeed(left_speed, right_speed);
-        Motor_Forward();
+        
+       
+				if(left_speed<0)
+				{
+					Motor_LeftReversal();
+					Motor_SetSpeed(-left_speed, right_speed);
+				}
+				else if(right_speed<0)
+				{
+					Motor_RightReversal();
+					Motor_SetSpeed(left_speed,-right_speed);
+				}
+				else
+				{
+					Motor_Forward();
+					Motor_SetSpeed(left_speed, right_speed);
+				}
     }
 }

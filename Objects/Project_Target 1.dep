@@ -871,8 +871,8 @@ I (.\Library\misc.h)(0x4D783BB4)
 I (Hardware\OLED_Font.h)(0x61683CCA)
 F (.\Hardware\OLED.h)(0x616ED05C)()
 F (.\Hardware\OLED_Font.h)(0x61683CCA)()
-F (.\Hardware\Motor.c)(0x69856883)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control-I.\RTE\_Target_1-IF:\newkeil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IF:\newkeil\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
-I (Hardware\Motor.h)(0x69856885)
+F (.\Hardware\Motor.c)(0x69881FEA)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control-I.\RTE\_Target_1-IF:\newkeil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IF:\newkeil\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
+I (Hardware\Motor.h)(0x69881FE8)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (F:\newkeil\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -901,8 +901,8 @@ I (.\Library\stm32f10x_tim.h)(0x4D783BB4)
 I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
-F (.\Hardware\Motor.h)(0x69856885)()
-F (.\Hardware\LineSensor.c)(0x6985D4C5)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control-I.\RTE\_Target_1-IF:\newkeil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IF:\newkeil\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\linesensor.o --omf_browse .\objects\linesensor.crf --depend .\objects\linesensor.d)
+F (.\Hardware\Motor.h)(0x69881FE8)()
+F (.\Hardware\LineSensor.c)(0x698825D8)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control-I.\RTE\_Target_1-IF:\newkeil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IF:\newkeil\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\linesensor.o --omf_browse .\objects\linesensor.crf --depend .\objects\linesensor.d)
 I (Hardware\LineSensor.h)(0x69848990)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -933,7 +933,7 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 F (.\Hardware\LineSensor.h)(0x69848990)()
-F (.\User\main.c)(0x6985E2BC)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control-I.\RTE\_Target_1-IF:\newkeil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IF:\newkeil\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\User\main.c)(0x698825D5)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control-I.\RTE\_Target_1-IF:\newkeil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IF:\newkeil\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (F:\newkeil\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -964,7 +964,7 @@ I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 I (.\System\Delay.h)(0x6130920E)
 I (.\Hardware\OLED.h)(0x616ED05C)
-I (.\Hardware\Motor.h)(0x69856885)
+I (.\Hardware\Motor.h)(0x69881FE8)
 I (.\Hardware\LineSensor.h)(0x69848990)
 I (.\Control\LinePosition.h)(0x69848944)
 F (.\User\stm32f10x_conf.h)(0x4D99A59E)()
@@ -999,7 +999,7 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 F (.\User\stm32f10x_it.h)(0x4D99A59E)()
-F (.\Control\LinePosition.c)(0x6985DE86)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control-I.\RTE\_Target_1-IF:\newkeil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IF:\newkeil\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\lineposition.o --omf_browse .\objects\lineposition.crf --depend .\objects\lineposition.d)
+F (.\Control\LinePosition.c)(0x69881327)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control-I.\RTE\_Target_1-IF:\newkeil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IF:\newkeil\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\lineposition.o --omf_browse .\objects\lineposition.crf --depend .\objects\lineposition.d)
 I (.\Hardware\LineSensor.h)(0x69848990)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)

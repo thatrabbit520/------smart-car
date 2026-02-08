@@ -8,7 +8,7 @@ int8_t LinePosition_Calc(void)
     int16_t sum_valid = 0;
 
     // 权重顺序:最右(P4)右2(P3)左2(P1)最左(P2)
-    static const int8_t SENSOR_WEIGHT[] = {6, 2, -2, -6};
+    static const int8_t SENSOR_WEIGHT[] = {6, 2, -6, -2};
 
     // 最右 最高位
     if (sensor_data & 8)
