@@ -2,15 +2,16 @@
 #include "Motor.h"
 #include "LineSensor.h"
 #include "LinePosition.h"
-
-// 完善PID各项参数，实现完整PID控制
+#include "stdlib.h"
+// 改进参数
 uint16_t base_speed = 350;    // 基础速度，避免电机死区
 float p_gain = 85.0f;         // P参数从116.5减小防止转向过猛
-float i_gain = 2.5f;          // I参数减小防止积分累加加剧震荡
-float d_gain = 1.2f;          // D参数增加提前抑制转向超调
-int32_t integral = 0;         // 积分积累值
-int32_t integral_limit = 120; // 积分上限，防止饱和
-int8_t last_offset = 0;       // 上一次偏差值，微分运算
+float i_gain = 1.0f;          // 减小I避免积分累加的震荡
+float d_gain = 1.8f;          // 重点增加D，强化预判超调，压直线高频晃动
+int32_t integral = 0;
+int32_t integral_limit = 60;  // 再缩小积分限幅，保留微弱积分作用
+int8_t last_offset = 0;
+#define OFFSET_DEAD_ZONE 2    // 偏差死区，过滤传感器杂波
 
 int main(void)
 {
@@ -20,49 +21,55 @@ int main(void)
 
     while(1)
     {
-        // 获取当前轨迹差
         int8_t offset = LinePosition_Calc();
 
-        // 丢线处理
+        // 丢线处理：重置PID，保持速度
         if(offset == -100)
         {
-            Motor_SetSpeed(350, 350); 
+            Motor_SetSpeed(350, 350);
             integral = 0;
             last_offset = 0;
             continue;
         }
 
-        // PID计算
+        // 过滤传感器杂波
+        if(abs(offset) < OFFSET_DEAD_ZONE)
+        {
+            offset = 0;  // 小偏差视为无偏差
+        }
+
+        // PID计算(保留微分滤波，再提D强化抑制晃动)
         int32_t p_out = (int32_t)(offset * p_gain);
         int32_t i_out = (int32_t)(integral * i_gain);
-        int32_t d_out = (int32_t)((offset - last_offset) * d_gain);
-
-        // 积分防饱和处理
-        integral += offset;
-        if(integral > integral_limit) integral = integral_limit;
-        if(integral < -integral_limit) integral = -integral_limit;
-
-        // PID总输出
+        // 微分滤波保留，避免杂波触发D项突变
+        int32_t d_out = (int32_t)(((offset - last_offset) * d_gain) * 0.7f);
         int32_t pid_output = p_out + i_out + d_out;
+
+        // 积分条件积累，只在有效时积累
+        if(abs(offset) > OFFSET_DEAD_ZONE)
+        {
+            integral += offset;
+            // 积分限幅
+            if(integral > integral_limit) integral = integral_limit;
+            if(integral < -integral_limit) integral = -integral_limit;
+        }
 
         // 速度计算
         int32_t left_speed = base_speed + pid_output;
         int32_t right_speed = base_speed - pid_output;
-
-        // 速度限幅
         left_speed = (left_speed < 300) ? 300 : (left_speed > 999) ? 999 : left_speed;
         right_speed = (right_speed < 300) ? 300 : (right_speed > 999) ? 999 : right_speed;
 
         // 转向执行
-        if(left_speed < 300) 
+        if(pid_output < 0)
         {
             Motor_LeftReversal();
-            Motor_SetSpeed(300, right_speed); 
+            Motor_SetSpeed(left_speed, right_speed);
         }
-        else if(right_speed < 300)
+        else if(pid_output > 0)
         {
             Motor_RightReversal();
-            Motor_SetSpeed(left_speed, 300); 
+            Motor_SetSpeed(left_speed, right_speed);
         }
         else
         {
