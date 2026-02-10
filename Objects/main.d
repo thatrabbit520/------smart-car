@@ -32,3 +32,4 @@
 .\objects\main.o: .\Hardware\LineSensor.h
 .\objects\main.o: .\Control\LinePosition.h
 .\objects\main.o: F:\newkeil\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\main.o: .\Hardware\OLED.h
