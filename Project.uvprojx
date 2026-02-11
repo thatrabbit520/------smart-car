@@ -720,6 +720,16 @@
               <FileType>5</FileType>
               <FilePath>.\Hardware\LineSensor.h</FilePath>
             </File>
+            <File>
+              <FileName>USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\USART.c</FilePath>
+            </File>
+            <File>
+              <FileName>USART.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\USART.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

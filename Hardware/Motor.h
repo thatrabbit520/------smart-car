@@ -22,5 +22,6 @@ void Motor_Forward(void);
 void Motor_SetSpeed(uint16_t left_speed,uint16_t right_speed);
 void Motor_LeftReversal(void);
 void Motor_RightReversal(void);
+void Motor_Back(void);
 void Motor_Stop(void);
 #endif

@@ -99,6 +99,15 @@ void Motor_RightReversal(void)
     GPIO_SetBits(IN2_PORT, IN2_PIN);
     GPIO_ResetBits(IN1_PORT, IN1_PIN);
 }
+void Motor_Back(void)
+{
+	//left
+	  GPIO_SetBits(IN4_PORT, IN4_PIN);
+    GPIO_ResetBits(IN3_PORT, IN3_PIN);
+	  //right
+    GPIO_SetBits(IN2_PORT, IN2_PIN);
+    GPIO_ResetBits(IN1_PORT, IN1_PIN);
+}
 // 设置左右电机PWM速度(0-999对应0%-100%占空比)
 void Motor_SetSpeed(uint16_t left_speed, uint16_t right_speed)
 {
