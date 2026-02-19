@@ -49,14 +49,26 @@ int main(void)
             if(car_mode == 1)
             {
                 if(cmd == 'W'){ L_man =  manual_spd; R_man =  manual_spd; Motor_Forward(); }
-                if(cmd == 'S'){ L_man = -manual_spd; R_man = -manual_spd; Motor_LeftReversal(); Motor_RightReversal(); }
+                if(cmd == 'S'){ L_man = manual_spd; R_man = manual_spd; Motor_Back(); }
                 if(cmd == 'A'){ L_man = manual_spd/2; R_man = manual_spd; Motor_LeftReversal(); }
                 if(cmd == 'D'){ L_man = manual_spd; R_man = manual_spd/2; Motor_RightReversal(); }
                 if(cmd == 'X'){ L_man = 0; R_man = 0; }
 								//速度挡位低，中，高
-                if(cmd == '1') manual_spd = 300;
-                if(cmd == '2') manual_spd = 500;
-                if(cmd == '3') manual_spd = 800;
+                if(cmd == '1')
+								{
+									manual_spd = 300;
+									base_speed = 300;
+								}									
+                if(cmd == '2')
+								{
+									manual_spd = 500;
+									base_speed = 500;
+								}									
+                if(cmd == '3')
+								{
+									manual_spd = 800;
+									base_speed = 800;
+								}									
             }
         }
 
