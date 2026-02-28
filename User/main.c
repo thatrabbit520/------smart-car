@@ -5,6 +5,9 @@
 #include "stdlib.h"
 #include "OLED.h"
 #include "USART.h"
+#include "SG90.h"
+#include "HC_SR04.h"
+#include "Delay.h"
 
 // 改进参数
 uint16_t base_speed = 350;    // 基础速度，避免电机死区
@@ -15,12 +18,16 @@ int32_t integral = 0;
 int32_t integral_limit = 60;   // 再缩小积分限幅，保留微弱积分作用
 int8_t last_offset = 0;
 #define OFFSET_DEAD_ZONE 2     // 偏差死区，过滤传感器杂波
+#define OBSTACLE_THRESHOLD 10  //障碍物阈值
 
 // 蓝牙模块变量(JDY-31蓝牙)
 uint8_t  car_mode = 0;
 int32_t  manual_spd = 300;
 int32_t  L_man = 0, R_man = 0;
 
+//避障回正记录
+uint8_t avoid_turn_dir = 0;
+uint16_t avoid_turn_time = 0;
 int main(void)
 {
     Motor_GPIO_Init();
@@ -28,7 +35,9 @@ int main(void)
     LineSensor_Init();
     OLED_Init();
     USART1_Init();
-
+    SG90_Init();
+	  HC_SR04_Init();
+	  SG90_SetAngle(90);
     while(1)
     {
         // 手机指令
@@ -79,6 +88,82 @@ int main(void)
             OLED_ShowString(1,1,"Mode:Manual");
             continue;
         }
+				// 自动模式下先测前方距离  10cm
+
+				if (car_mode == 0)
+				{
+						float front_dis = HC_SR04_GetDistance();
+						// 触发避障
+						if (front_dis > 0 && front_dis < OBSTACLE_THRESHOLD)
+						{
+								// 紧急停车
+								Motor_SetSpeed(0, 0);
+								Delay_ms(200);
+
+								// 扫描左右决定转向方向
+								SG90_SetAngle(0); Delay_ms(300);
+								float left_dis = HC_SR04_GetDistance();
+								SG90_SetAngle(180); Delay_ms(300);
+								float right_dis = HC_SR04_GetDistance();
+								SG90_SetAngle(90); Delay_ms(300);
+
+								// 执行转向，记录方向和时间
+								uint16_t turn_time = 800; // 可调整的转向时间
+								if (left_dis > right_dis)
+								{
+										// 左转
+										Motor_RightReversal();
+										Motor_SetSpeed(400, 400); 
+										Delay_ms(turn_time);
+										//记录数据
+										avoid_turn_dir = 1;
+										avoid_turn_time = turn_time;
+								}
+								else
+								{
+										// 右转
+										Motor_LeftReversal();
+										Motor_SetSpeed(400, 400);
+										Delay_ms(turn_time);
+										// 记录数据
+										avoid_turn_dir = 2;
+										avoid_turn_time = turn_time;
+								}
+
+								// 直行离开障碍物
+								Motor_Forward();
+								Motor_SetSpeed(base_speed, base_speed);
+								Delay_ms(1600); // 可调节的时间
+
+								// 返回黑线
+								if (avoid_turn_dir == 1)
+								{
+										// 之前左转现在右转
+										Motor_LeftReversal();
+										Motor_SetSpeed(400, 400);
+										Delay_ms(1.6*avoid_turn_time);
+								}
+								else if (avoid_turn_dir == 2)
+								{
+										// 之前右转现在左转
+										Motor_RightReversal();
+										Motor_SetSpeed(400, 400);
+										Delay_ms(1.6*avoid_turn_time);
+								}
+
+								// 直行返回
+								Motor_Forward();
+								Motor_SetSpeed(base_speed, base_speed);
+								Delay_ms(1500);
+
+								// 重置记录
+								avoid_turn_dir = 0;
+								avoid_turn_time = 0;
+								// 重置PID
+								integral = 0;
+								last_offset = 0;
+						}
+				}
 
         int8_t offset = LinePosition_Calc();
 

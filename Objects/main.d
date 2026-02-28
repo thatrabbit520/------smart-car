@@ -34,3 +34,6 @@
 .\objects\main.o: F:\newkeil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\main.o: .\Hardware\OLED.h
 .\objects\main.o: .\Hardware\USART.h
+.\objects\main.o: .\Hardware\SG90.h
+.\objects\main.o: .\Hardware\HC_SR04.h
+.\objects\main.o: .\System\Delay.h
